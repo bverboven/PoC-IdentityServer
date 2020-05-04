@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29926.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.Sts", "Identity.Sts\Identity.Sts.csproj", "{D362696F-4FC5-4D73-8E76-74982B348E6E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountManagement", "AccountManagement\AccountManagement.csproj", "{16506B39-C4BD-4672-854C-692DBA435013}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.Library", "Identity.Library\Identity.Library.csproj", "{6735E8D0-2B70-4280-97BE-D9290D5E8D08}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{ABBCFFBA-128B-47D6-8CEB-83EDD26BA90B}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\Users\Bram\AppData\Roaming\Microsoft\UserSecrets\933c0700-7d2c-4d82-b6e9-c8f1a983f95d\secrets.json = ..\..\..\..\Users\Bram\AppData\Roaming\Microsoft\UserSecrets\933c0700-7d2c-4d82-b6e9-c8f1a983f95d\secrets.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountApi", "AccountApi\AccountApi.csproj", "{2086E298-3CF2-4CBD-B8BE-F1629579A428}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D362696F-4FC5-4D73-8E76-74982B348E6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D362696F-4FC5-4D73-8E76-74982B348E6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D362696F-4FC5-4D73-8E76-74982B348E6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D362696F-4FC5-4D73-8E76-74982B348E6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16506B39-C4BD-4672-854C-692DBA435013}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16506B39-C4BD-4672-854C-692DBA435013}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16506B39-C4BD-4672-854C-692DBA435013}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16506B39-C4BD-4672-854C-692DBA435013}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6735E8D0-2B70-4280-97BE-D9290D5E8D08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6735E8D0-2B70-4280-97BE-D9290D5E8D08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6735E8D0-2B70-4280-97BE-D9290D5E8D08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6735E8D0-2B70-4280-97BE-D9290D5E8D08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2086E298-3CF2-4CBD-B8BE-F1629579A428}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2086E298-3CF2-4CBD-B8BE-F1629579A428}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2086E298-3CF2-4CBD-B8BE-F1629579A428}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2086E298-3CF2-4CBD-B8BE-F1629579A428}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {089E157C-92E6-448D-8799-38D9A00A7979}
+	EndGlobalSection
+EndGlobal

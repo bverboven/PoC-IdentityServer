@@ -1,0 +1,42 @@
+﻿@using Identity.Sts.Quickstart.Account
+@model LoginWith2faModel
+
+@{
+    ViewData["Title"] = "Two-factor authentication";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+<p>Your login is protected with an authenticator app. Enter your authenticator code below.</p>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-route-returnUrl="@Model.ReturnUrl">
+            <input type="hidden" asp-for="RememberMe" />
+            <input type="hidden" asp-for="ReturnUrl" />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="@Model.TwoFactorCode"></label>
+                <input asp-for="@Model.TwoFactorCode" class="form-control" autocomplete="off" />
+                <span asp-validation-for="@Model.TwoFactorCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label asp-for="@Model.RememberMachine">
+                        <input asp-for="@Model.RememberMachine" />
+                        @Html.DisplayNameFor(m => m.RememberMachine)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" name="button" value="login">Login</button>
+                <button class="btn btn-default" name="button" value="cancel">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+<p>
+    Don't have access to your authenticator device? You can
+    <a id="recovery-code-login" asp-controller="LoginWithRecoveryCode" asp-action="Index"
+       asp-route-returnUrl="@Model.ReturnUrl">log in with a recovery code</a>.
+</p>
+

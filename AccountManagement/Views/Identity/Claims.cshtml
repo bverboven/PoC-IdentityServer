@@ -1,0 +1,20 @@
+﻿<h2>Claims</h2>
+
+<a asp-action="Index">Claims</a>
+<br />
+<a asp-action="Custom">Custom</a>
+<br />
+<a asp-action="CanRead">CanRead</a>
+<br />
+<a asp-action="IsAdmin">IsAdmin</a>
+<br />
+<a asp-action="AccessToken">Access Token</a>
+<br />
+
+<dl>
+    @foreach (var claim in User.Claims)
+    {
+        <dt>@claim.Type</dt>
+        <dd>@claim.Value</dd>
+    }
+</dl>
