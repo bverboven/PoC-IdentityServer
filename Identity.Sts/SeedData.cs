@@ -47,7 +47,7 @@ namespace Identity.Sts
             var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
             context.Database.Migrate();
 
-            var adminEmail = "bram.verboven@gmail.com";
+            var adminEmail = "admin@regira.com";
             var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var adminUser = userMgr.FindByNameAsync(adminEmail).Result;
             if (adminUser == null)
@@ -85,15 +85,14 @@ namespace Identity.Sts
                 Log.Debug("admin already exists");
             }
 
-            return;
-
-            var bramUser = userMgr.FindByNameAsync("bram").Result;
+            var testUsername = "bram@regira.com";
+            var bramUser = userMgr.FindByNameAsync(testUsername).Result;
             if (bramUser == null)
             {
                 bramUser = new ApplicationUser
                 {
-                    UserName = "bramverboven@hotmail.com",
-                    Email = "bramverboven@hotmail.com",
+                    UserName = testUsername,
+                    Email = testUsername,
                     EmailConfirmed = true
                 };
                 var result = userMgr.CreateAsync(bramUser, "test").Result;

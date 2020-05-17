@@ -3,6 +3,7 @@
 
 
 using Identity.Library.Data;
+using Identity.Library.DependencyInjection;
 using Identity.Library.Identity;
 using Identity.Library.Models;
 using Microsoft.AspNetCore.Authentication.Google;
@@ -69,6 +70,7 @@ namespace Identity.Sts
 
             // Identity
             services
+                .LoadCommonIdentity(Configuration.GetSection("Urls"))
                 .AddIdentity<ApplicationUser, IdentityRole>(o =>
                 {
                     o.SignIn.RequireConfirmedAccount = true;

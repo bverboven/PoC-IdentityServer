@@ -16,33 +16,41 @@ namespace Identity.Sts
                 new IdentityResource("roles", "Roles", new[] {"role"}),
                 new IdentityResource("permissions", "Permissions", new[] {"permission"}),
             };
-        
+
         public static IEnumerable<ApiResource> Apis =>
             new[]
             {
-                new ApiResource("api1", "My API #1")
+                new ApiResource("accountApi", "Account Api") {
+                    ApiSecrets = {new Secret("Account_Api".Sha256())}
+                }
             };
-        
+
         public static IEnumerable<Client> Clients =>
-            new[]
-            {
-                new Client
-                {
+            new[] {
+                new Client {
                     ClientId = "accountManager",
                     ClientName = "Account management",
-                    ClientSecrets = { new Secret("Account_Management".Sha256()) },
+                    ClientSecrets = {new Secret("Account_Management".Sha256())},
 
                     //AccessTokenType = AccessTokenType.Reference,
                     RequirePkce = true,
                     AllowOfflineAccess = true,
                     RequireConsent = false,
-                    
-                    AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
-                    AllowedScopes = { "openid", "profile", "roles", "permissions" },
 
-                    RedirectUris = { "https://localhost:5001/signin-oidc" },
+                    AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
+                    AllowedScopes = {"openid", "profile", "roles", "permissions"},
+
+                    RedirectUris = {"https://localhost:5001/signin-oidc"},
                     FrontChannelLogoutUri = "https://localhost:5001/signout-oidc",
-                    PostLogoutRedirectUris = { "https://localhost:5001/signout-callback-oidc" }
+                    PostLogoutRedirectUris = {"https://localhost:5001/signout-callback-oidc"}
+                },
+                new Client {
+                    ClientId = "consoleApp",
+                    ClientName = "Console app",
+                    ClientSecrets = {new Secret("Console_App".Sha256())},
+
+                    AllowedGrantTypes = {GrantType.ClientCredentials, GrantType.ResourceOwnerPassword},
+                    AllowedScopes = { "accountApi" }
                 },
             };
     }

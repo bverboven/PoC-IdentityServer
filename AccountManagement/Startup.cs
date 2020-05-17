@@ -1,20 +1,18 @@
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Identity.Library.Constants;
 using IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
-using IdentityConstants = Identity.Library.Constants.IdentityConstants;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Identity.Library.Defaults;
+using Identity.Library.DependencyInjection;
 
 namespace AccountManagement
 {
@@ -34,22 +32,23 @@ namespace AccountManagement
             services.AddRazorPages();
 
             services
+                .LoadCommonIdentity(Configuration.GetSection("Urls"))
                 .AddAuthentication(o =>
                 {
                     o.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    o.DefaultAuthenticateScheme = IdentityConstants.AuthenticationScheme;// required when using OpenIdConnect to prevent infinite redirect loop
-                    o.DefaultChallengeScheme = IdentityConstants.AuthenticationScheme;
+                    o.DefaultAuthenticateScheme = IdentityDefaults.AuthenticationScheme;// required when using OpenIdConnect to prevent infinite redirect loop
+                    o.DefaultChallengeScheme = IdentityDefaults.AuthenticationScheme;
                 })
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, o =>
                 {
 
                 })
-                .AddOpenIdConnect(IdentityConstants.AuthenticationScheme, o =>
+                .AddOpenIdConnect(IdentityDefaults.AuthenticationScheme, o =>
                 {
                     o.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;// required when using OpenIdConnect to prevent infinite redirect loop
                     o.ClientId = "accountManager";
                     o.ClientSecret = "Account_Management";
-                    o.Authority = IdentityConstants.Authority;
+                    o.Authority = IdentityDefaults.Authority;
                     o.CallbackPath = "/signin-oidc";
 
                     o.UsePkce = true;
@@ -61,7 +60,7 @@ namespace AccountManagement
                     //o.Scope.Add("openid");
                     //o.Scope.Add("profile");
                     o.Scope.Add("roles");
-                    o.ClaimActions.MapUniqueJsonKey(IdentityConstants.RoleClaimType, "role");
+                    o.ClaimActions.MapUniqueJsonKey(IdentityDefaults.RoleClaimType, "role");
                     o.Scope.Add("permissions");
                     o.ClaimActions.MapUniqueJsonKey("permission", "permission", "json");
 
@@ -73,7 +72,7 @@ namespace AccountManagement
                     o.TokenValidationParameters = new TokenValidationParameters
                     {
                         NameClaimType = ClaimTypes.NameIdentifier,
-                        RoleClaimType = IdentityConstants.RoleClaimType
+                        RoleClaimType = IdentityDefaults.RoleClaimType
                     };
                 });
 

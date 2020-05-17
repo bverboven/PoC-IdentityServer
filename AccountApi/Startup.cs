@@ -1,7 +1,9 @@
-using Identity.Library.Constants;
+using Identity.Library.Defaults;
+using Identity.Library.DependencyInjection;
 using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,12 +24,17 @@ namespace AccountApi
         {
             services.AddControllers();
 
+            services.AddDistributedMemoryCache();
+
             services
+                .LoadCommonIdentity(Configuration.GetSection("Urls"))
                 .AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
-                .AddIdentityServerAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme, o => {
-                    o.Authority = IdentityConstants.Authority;
+                .AddIdentityServerAuthentication(o =>
+                {
+                    o.Authority = IdentityDefaults.Authority;
                     o.ApiName = "accountApi";
                     o.ApiSecret = "Account_Api";
+                    o.EnableCaching = true;
                 });
         }
 

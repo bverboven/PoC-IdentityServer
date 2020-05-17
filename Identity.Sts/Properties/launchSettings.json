@@ -3,7 +3,7 @@
     "Identity.Sts": {
       "commandName": "Project",
       "commandLineArgs": "/seed",
-      "launchBrowser": true,
+      //"launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

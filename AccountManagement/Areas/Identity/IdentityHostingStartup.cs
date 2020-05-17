@@ -1,5 +1,5 @@
-﻿using Identity.Library.Constants;
-using Identity.Library.Data;
+﻿using Identity.Library.Data;
+using Identity.Library.Defaults;
 using Identity.Library.Identity;
 using Identity.Library.Models;
 using Microsoft.AspNetCore.Hosting;
@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using IdentityConstants = Identity.Library.Constants.IdentityConstants;
 
 [assembly: HostingStartup(typeof(AccountManagement.Areas.Identity.IdentityHostingStartup))]
 namespace AccountManagement.Areas.Identity
@@ -31,7 +30,7 @@ namespace AccountManagement.Areas.Identity
 
                          o.User.RequireUniqueEmail = true;
 
-                         o.ClaimsIdentity.RoleClaimType = IdentityConstants.RoleClaimType;
+                         o.ClaimsIdentity.RoleClaimType = IdentityDefaults.RoleClaimType;
 
                          o.Password.RequireDigit = false;
                          o.Password.RequireLowercase = false;
