@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+
+    var userTitle = User.Identity.IsAuthenticated
+        ? $"{User.FindFirst("given_name")?.Value} {User.FindFirst("family_name")?.Value}".Trim()
+        : @User.FindFirst("name")?.Value;
+}
+
+<div class="text-center">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <h1 class="display-4">Welcome, @userTitle</h1>
+        <dl>
+            @foreach (var claim in User.Claims)
+            {
+                <dt>@claim.Type</dt>
+                <dd>@claim.Value</dd>
+            }
+        </dl>
+    }
+    else
+    {
+        <h1 class="display-4">Welcome</h1>
+    }
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>

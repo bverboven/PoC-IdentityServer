@@ -18,7 +18,14 @@ namespace Identity.Library.Identity
         {
             var identity = await base.GenerateClaimsAsync(user);
 
-            //identity.AddClaim(new Claim("role", "user"));
+            if (!string.IsNullOrWhiteSpace(user.GivenName))
+            {
+                identity.AddClaim(new Claim("given_name", user.GivenName));
+            }
+            if (!string.IsNullOrWhiteSpace(user.FamilyName))
+            {
+                identity.AddClaim(new Claim("family_name", user.FamilyName));
+            }
 
             return identity;
         }

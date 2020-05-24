@@ -1,0 +1,14 @@
+﻿@model IEnumerable<System.Security.Claims.Claim>
+@{
+    ViewData["Title"] = "UserInfo";
+}
+
+<h1>User info</h1>
+
+<dl>
+    @foreach (var claim in @Model)
+    {
+        <dt>@claim.Type</dt>
+        <dd>@claim.Value</dd>
+    }
+</dl>

@@ -93,7 +93,9 @@ namespace Identity.Sts
                 {
                     UserName = testUsername,
                     Email = testUsername,
-                    EmailConfirmed = true
+                    EmailConfirmed = true,
+                    GivenName = "Bram",
+                    FamilyName = "V"
                 };
                 var result = userMgr.CreateAsync(bramUser, "test").Result;
                 if (!result.Succeeded)

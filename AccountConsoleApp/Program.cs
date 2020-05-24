@@ -31,18 +31,17 @@ namespace AccountConsoleApp
             var tokenResponse = await pg.GetAccessTokenUsinClientCredentials(disco);
             Console.WriteLine($"Token: {tokenResponse.Json}");
 
-            var apiContent1 = await pg.CallApi(tokenResponse.AccessToken);
-            Console.WriteLine($"Api response: {JArray.Parse(apiContent1)}");
+            var claimsContent = await pg.CallAppi(tokenResponse.AccessToken, "claims");
+            Console.WriteLine($"Api response: {JArray.Parse(claimsContent)}");
 
 
             // get token using pwd & username
             var pwdResponse = await pg.GetAccessTokenUsingUsernameAndPassword(disco);
             Console.WriteLine($"Pwd token: {pwdResponse.Json}");
 
-            var content2 = await pg.CallApi(pwdResponse.AccessToken);
-            Console.WriteLine($"Api response: {JArray.Parse(content2)}");
-
-
+            var claimsContent2 = await pg.CallAppi(pwdResponse.AccessToken, "claims");
+            Console.WriteLine($"Api response (claims): {JArray.Parse(claimsContent2)}");
+            
             // The End
             Console.ReadLine();
         }
@@ -73,12 +72,12 @@ namespace AccountConsoleApp
             };
             return await tokenClient.RequestPasswordTokenAsync(pwdReq);
         }
-        async Task<string> CallApi(string accessToken)
+        async Task<string> CallAppi(string accessToken, string action)
         {
             var apiClient = new HttpClient();
             apiClient.SetBearerToken(accessToken);
 
-            var apiResponse = await apiClient.GetAsync($"{IdentityDefaults.AccountApi}/api/claims");
+            var apiResponse = await apiClient.GetAsync($"{IdentityDefaults.AccountApi}/api/identity/{action}");
             return await apiResponse.Content.ReadAsStringAsync();
         }
     }

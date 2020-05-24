@@ -1,13 +1,13 @@
-﻿using System;
-using Identity.Library.Defaults;
+﻿using Identity.Library.Defaults;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace AccountManagement.Controllers
 {
-    public class AccountController : ControllerBase
+    public class AccountController : Controller
     {
         [AllowAnonymous]
         public IActionResult Login(string returnUrl = "/")
@@ -24,6 +24,11 @@ namespace AccountManagement.Controllers
         public IActionResult Logout()
         {
             return SignOut(CookieAuthenticationDefaults.AuthenticationScheme, IdentityDefaults.AuthenticationScheme);
+        }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }

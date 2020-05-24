@@ -1,7 +1,9 @@
+using Identity.Library.Authorization;
+using Identity.Library.Defaults;
+using Identity.Library.DependencyInjection;
 using IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -10,9 +12,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
-using System.Threading.Tasks;
-using Identity.Library.Defaults;
-using Identity.Library.DependencyInjection;
 
 namespace AccountManagement
 {
@@ -45,7 +44,7 @@ namespace AccountManagement
                 })
                 .AddOpenIdConnect(IdentityDefaults.AuthenticationScheme, o =>
                 {
-                    o.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;// required when using OpenIdConnect to prevent infinite redirect loop
+                    o.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                     o.ClientId = "accountManager";
                     o.ClientSecret = "Account_Management";
                     o.Authority = IdentityDefaults.Authority;
@@ -60,7 +59,7 @@ namespace AccountManagement
                     //o.Scope.Add("openid");
                     //o.Scope.Add("profile");
                     o.Scope.Add("roles");
-                    o.ClaimActions.MapUniqueJsonKey(IdentityDefaults.RoleClaimType, "role");
+                    o.ClaimActions.MapUniqueJsonKey(IdentityDefaults.RoleClaimType, IdentityDefaults.RoleClaimType);
                     o.Scope.Add("permissions");
                     o.ClaimActions.MapUniqueJsonKey("permission", "permission", "json");
 
@@ -130,22 +129,6 @@ namespace AccountManagement
                     .RequireAuthorization();
                 endpoints.MapRazorPages();
             });
-        }
-    }
-
-    public class HasAccessRequirement : IAuthorizationRequirement
-    {
-    }
-
-    public class HasAccessRequirementHandler : AuthorizationHandler<HasAccessRequirement>
-    {
-        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, HasAccessRequirement requirement)
-        {
-            var claims = context.User.Claims;
-
-            context.Succeed(requirement);
-
-            return Task.CompletedTask;
         }
     }
 }
